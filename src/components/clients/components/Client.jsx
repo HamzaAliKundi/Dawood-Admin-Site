@@ -44,7 +44,7 @@ const Client = ({ client, handleDeleteConfrim }) => {
         <td className="px-6 py-4">{client.contactvia}</td>
         <td className="px-6 py-4">{formatedDAte}</td>
         <td>
-          <Link href="#" className="text-[blue]">
+          <Link to={`/client/detail/${client._id}`} className="text-[blue]">
             {" "}
             <span>View</span>{" "}
           </Link>

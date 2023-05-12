@@ -4,12 +4,14 @@ import Clients from "./components/clients/Clients";
 import Candidates from "./components/candidates/Candidates";
 import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
+import ClientDetail from "./components/clients/components/ClientDetail";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
+          <Route path="/client/detail/:id" element={<ClientDetail />} />
           <Route path="/candidates/info" element={<Candidates />} />
           <Route path="/clients/info" element={<Clients />} />
           <Route path="/dashborad" element={<Dashboard />} />
