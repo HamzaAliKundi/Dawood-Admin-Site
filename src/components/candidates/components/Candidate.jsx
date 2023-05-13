@@ -43,7 +43,7 @@ const Candidate = ({ candidate, handleDeleteConfrim }) => {
         <td className="px-6 py-4">{candidate.phone}</td>
         <td className="px-6 py-4">{formatedDAte}</td>
         <td>
-          <Link href="#" className="text-[blue]">
+          <Link to={`/candidate/detail/${candidate._id}`} className="text-[blue]">
             {" "}
             <span>View</span>{" "}
           </Link>
