@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import hostUrl from "../Assets/Apis";
 import Client from "./components/Client";
 import Loader from "../resuable/Loader";
+import SideNavLinks from "../resuable/SideNavLinks";
+import logo from "../Assets/Images/logo.png";
+import jwtDecode from "jwt-decode";
 
 const Clients = () => {
   const [clients, setClients] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = useState("");
+
+  const userToken = localStorage.getItem("token");
+  const jwt = jwtDecode(userToken);
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -40,10 +46,6 @@ const Clients = () => {
       })
   }
 
-  const deleteClient = (id) => {
-    console.log("Client ID : ", id);
-  }
-
 const handleDeleteConfrim = async (id) => {
   setOpen(true);
   const token = localStorage.getItem("token");
@@ -70,12 +72,7 @@ const handleDeleteConfrim = async (id) => {
           <div className="w-full flex flex-col justify-between items-center bg-[#001e2b]  text-white col-span-2 ">
             <div className="w-full p-3 text-base font-bold  space-y-8">
               <div className=" mx-auto ">
-                <img
-                  src="./Assets/Images/logo.png"
-                  alt="logo"
-                  height="144px"
-                  width="100px"
-                />
+                <img src={logo} alt="logo" />
               </div>
               <div
                 div
@@ -85,20 +82,7 @@ const handleDeleteConfrim = async (id) => {
                 <hr className="w-full h-[1px] text-[gray] mt-3" />
               </div>
 
-              <ul className="mt-12 space-y-4">
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <MdAdminPanelSettings size={20} /> */}
-                  <Link to="/">Dashbroad</Link>
-                </li>
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <FaUser size={20} className="text-[white]" /> */}
-                  <Link to="/clients/info">Client Info</Link>
-                </li>
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <BsFillPersonLinesFill size={20} className="text-[white]" /> */}
-                  <Link to="/candidates/info">Applicant Info</Link>
-                </li>
-              </ul>
+              <SideNavLinks />
             </div>
 
             {/* log out button */}
@@ -118,7 +102,12 @@ const handleDeleteConfrim = async (id) => {
                 Welcome to Admin Pannel
               </div>
 
-              <img src="./Assets/Images/ceodawoodproud2.png" alt="dawood" />
+              {/* <img src="./Assets/Images/ceodawoodproud2.png" alt="dawood" /> */}
+              <div>
+                {" "}
+                <span style={{ color: "dimgray" }}> Logged in as : </span>{" "}
+                <b style={{ fontFamily: "koHo" }}> {jwt.name} </b>{" "}
+              </div>
             </div>
             <div className="mx-auto w-full">
               <div className="container my-5 mx-auto">
@@ -154,7 +143,7 @@ const handleDeleteConfrim = async (id) => {
                           </thead>
                           <tbody>
                             {clients.map((client) => {
-                              return <Client key={client._id} handleDeleteConfrim={handleDeleteConfrim} client={client} deleteClient={deleteClient} />;
+                              return <Client key={client._id} handleDeleteConfrim={handleDeleteConfrim} client={client} />;
                             })}
                           </tbody>
                         </table>
