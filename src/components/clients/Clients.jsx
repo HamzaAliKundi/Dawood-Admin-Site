@@ -6,11 +6,15 @@ import Client from "./components/Client";
 import Loader from "../resuable/Loader";
 import SideNavLinks from "../resuable/SideNavLinks";
 import logo from "../Assets/Images/logo.png";
+import jwtDecode from "jwt-decode";
 
 const Clients = () => {
   const [clients, setClients] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = useState("");
+
+  const userToken = localStorage.getItem("token");
+  const jwt = jwtDecode(userToken);
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -98,7 +102,12 @@ const handleDeleteConfrim = async (id) => {
                 Welcome to Admin Pannel
               </div>
 
-              <img src="./Assets/Images/ceodawoodproud2.png" alt="dawood" />
+              {/* <img src="./Assets/Images/ceodawoodproud2.png" alt="dawood" /> */}
+              <div>
+                {" "}
+                <span style={{ color: "dimgray" }}> Logged in as : </span>{" "}
+                <b style={{ fontFamily: "koHo" }}> {jwt.name} </b>{" "}
+              </div>
             </div>
             <div className="mx-auto w-full">
               <div className="container my-5 mx-auto">
