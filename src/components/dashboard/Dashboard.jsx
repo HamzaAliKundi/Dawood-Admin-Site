@@ -1,5 +1,9 @@
 import React, {useEffect}  from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./css/Dashboard.css";
+// import ceodawoodproud2 from "./Assets/Images/ceodawoodproud2.png"
+import logo from "./Assets/Images/logo.png"
+import jwtDecode from "jwt-decode";
 
 const Dashboard = () => {
 
@@ -11,6 +15,9 @@ const Dashboard = () => {
     }
   }, [navigate, token]);
 
+  const userToken = localStorage.getItem("token");
+  const jwt = jwtDecode(userToken);
+
   return (
     <>
        <div className='font-inter'>
@@ -18,7 +25,7 @@ const Dashboard = () => {
                 <div className='w-full flex flex-col justify-between items-center bg-[#001e2b]  text-white col-span-2 '>
                     <div className='w-full p-3 text-base font-bold  space-y-8'>
                         <div className=' mx-auto '>
-                            <img src="./Assets/Images/logo.png" alt="logo" height="144px" width="100px" />
+                            <img src={logo} alt="logo" />
                         </div>
                         <div div className='mt-6 text-xl md:text-2xl lg:text-2xl font-bold abdal_color mx-auto'>
                             <h1>Admin Pannel</h1>
@@ -64,12 +71,15 @@ const Dashboard = () => {
                             Welcome to Admin Pannel
                         </div>
                      
-                          <img src="./Assets/Images/ceodawoodproud2.png" alt="dawood" />
+                          {/* <img src="./Assets/Images/ceodawoodproud2.png" alt="dawood" /> */}
+                      <div>  <span style={{ color: "dimgray" }} >  Logged in as : </span> <b style={{ fontFamily: "koHo" }} > {jwt.name} </b> </div>
                        
                     </div>
                     <div className='mx-auto w-full'>
-                        {/* {renderTabContent()} */}
                         <h1>Content Dashbord</h1>
+                        <div class="container mx-auto">
+                            <div className="row"></div>
+                        </div>
                     </div>
                 </div>
             </div>
