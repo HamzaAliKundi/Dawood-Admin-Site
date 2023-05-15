@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
-import logo from "./Assets/Images/logo.png";
+import { useNavigate } from "react-router-dom";
+import logo from "../Assets/Images/logo.png";
 import jwtDecode from "jwt-decode";
 import SideNavLinks from "../resuable/SideNavLinks";
 // import ceodawoodproud2 from "./Assets/Images/ceodawoodproud2.png"
 
 const Dashboard = () => {
-
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   useEffect(() => {

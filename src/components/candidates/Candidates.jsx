@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import hostUrl from "../Assets/Apis";
 import Loader from "../resuable/Loader";
 import Candidate from "./components/Candidate";
 import SideNavLinks from "../resuable/SideNavLinks";
+import logo from "../Assets/Images/logo.png";
 
 const Candidates = () => {
   const [candidates, setCandidates] = useState([]);
@@ -20,7 +21,7 @@ const Candidates = () => {
   }, [navigate, token]);
 
   useEffect(() => {
-   fetchCandidates();
+    fetchCandidates();
   }, []);
 
   const fetchCandidates = async () => {
@@ -31,39 +32,39 @@ const Candidates = () => {
         Authorization: `Bearer ${token}`,
       },
     };
-      axios.get(`${hostUrl}/api/candidate/apply`, config).then((res) => {
+    axios
+      .get(`${hostUrl}/api/candidate/apply`, config)
+      .then((res) => {
         setCandidates(res.data);
         setOpen(false);
-      }).catch((err) => {
+      })
+      .catch((err) => {
         setTimeout(() => {
           setMessage("Please Reload page ...");
         }, 15000);
-      })
-  }
-
-  const deleteCandidate = (id) => {
-    console.log("Client ID : ", id);
-  }
-
-const handleDeleteConfrim = async (id) => {
-    console.log("id", id)
-  setOpen(true);
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+      });
   };
-   await axios.delete(`${hostUrl}/api/candidate/delete/${id}`, config).then((res) => {
-      console.log(res)
-      setOpen(false);
-      fetchCandidates();
-    }).catch((err) => {
-      setTimeout(() => {
-        setMessage("Please Reload page...");
-      }, 15000);
-    })
-}
+
+  const handleDeleteConfrim = async (id) => {
+    setOpen(true);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios
+      .delete(`${hostUrl}/api/candidate/delete/${id}`, config)
+      .then((res) => {
+        setOpen(false);
+        fetchCandidates();
+      })
+      .catch((err) => {
+        setTimeout(() => {
+          setMessage("Please Reload page...");
+        }, 15000);
+      });
+  };
   return (
     <>
       <Loader open={open} message={message} />
@@ -72,12 +73,7 @@ const handleDeleteConfrim = async (id) => {
           <div className="w-full flex flex-col justify-between items-center bg-[#001e2b]  text-white col-span-2 ">
             <div className="w-full p-3 text-base font-bold  space-y-8">
               <div className=" mx-auto ">
-                <img
-                  src="./Assets/Images/logo.png"
-                  alt="logo"
-                  height="144px"
-                  width="100px"
-                />
+                <img src={logo} alt="logo" />
               </div>
               <div
                 div
@@ -125,7 +121,7 @@ const handleDeleteConfrim = async (id) => {
                                 Name
                               </th>
                               <th scope="col" className="px-6 py-3">
-                               email
+                                email
                               </th>
                               <th scope="col" className="px-6 py-3">
                                 Phone
@@ -140,7 +136,13 @@ const handleDeleteConfrim = async (id) => {
                           </thead>
                           <tbody>
                             {candidates.map((candidate) => {
-                              return <Candidate key={candidate._id} handleDeleteConfrim={handleDeleteConfrim} candidate={candidate} deleteCandidate={deleteCandidate} />;
+                              return (
+                                <Candidate
+                                  key={candidate._id}
+                                  handleDeleteConfrim={handleDeleteConfrim}
+                                  candidate={candidate}
+                                />
+                              );
                             })}
                           </tbody>
                         </table>

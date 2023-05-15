@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import hostUrl from "../Assets/Apis";
 import Client from "./components/Client";
 import Loader from "../resuable/Loader";
 import SideNavLinks from "../resuable/SideNavLinks";
+import logo from "../Assets/Images/logo.png";
 
 const Clients = () => {
   const [clients, setClients] = useState([]);
@@ -41,10 +42,6 @@ const Clients = () => {
       })
   }
 
-  const deleteClient = (id) => {
-    console.log("Client ID : ", id);
-  }
-
 const handleDeleteConfrim = async (id) => {
   setOpen(true);
   const token = localStorage.getItem("token");
@@ -71,12 +68,7 @@ const handleDeleteConfrim = async (id) => {
           <div className="w-full flex flex-col justify-between items-center bg-[#001e2b]  text-white col-span-2 ">
             <div className="w-full p-3 text-base font-bold  space-y-8">
               <div className=" mx-auto ">
-                <img
-                  src="./Assets/Images/logo.png"
-                  alt="logo"
-                  height="144px"
-                  width="100px"
-                />
+                <img src={logo} alt="logo" />
               </div>
               <div
                 div
@@ -142,7 +134,7 @@ const handleDeleteConfrim = async (id) => {
                           </thead>
                           <tbody>
                             {clients.map((client) => {
-                              return <Client key={client._id} handleDeleteConfrim={handleDeleteConfrim} client={client} deleteClient={deleteClient} />;
+                              return <Client key={client._id} handleDeleteConfrim={handleDeleteConfrim} client={client} />;
                             })}
                           </tbody>
                         </table>
