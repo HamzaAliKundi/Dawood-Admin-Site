@@ -4,6 +4,7 @@ import axios from "axios";
 import hostUrl from "../Assets/Apis";
 import Client from "./components/Client";
 import Loader from "../resuable/Loader";
+import SideNavLinks from "../resuable/SideNavLinks";
 
 const Clients = () => {
   const [clients, setClients] = useState([]);
@@ -85,20 +86,7 @@ const handleDeleteConfrim = async (id) => {
                 <hr className="w-full h-[1px] text-[gray] mt-3" />
               </div>
 
-              <ul className="mt-12 space-y-4">
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <MdAdminPanelSettings size={20} /> */}
-                  <Link to="/">Dashbroad</Link>
-                </li>
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <FaUser size={20} className="text-[white]" /> */}
-                  <Link to="/clients/info">Client Info</Link>
-                </li>
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <BsFillPersonLinesFill size={20} className="text-[white]" /> */}
-                  <Link to="/candidates/info">Applicant Info</Link>
-                </li>
-              </ul>
+              <SideNavLinks />
             </div>
 
             {/* log out button */}
