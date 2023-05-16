@@ -1,2 +1,2 @@
-let hostUrl = "http://localhost:5000";
+let hostUrl = "http://server.dawoodproud.com:5000";
 export default hostUrl;

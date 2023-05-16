@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../resuable/Loader";
 import axios from "axios";
 import hostUrl from "../../Assets/Apis";
+import logo from "../../Assets/Images/logo.png";
+import SideNavLinks from "../../resuable/SideNavLinks";
+import jwtDecode from "jwt-decode";
 
 const ClientDetail = () => {
   const [client, setClient] = useState({});
@@ -12,7 +15,8 @@ const ClientDetail = () => {
   const clientDetail = useParams();
   const id = clientDetail.id;
 
-  console.log("Sate:", client)
+  const userToken = localStorage.getItem("token");
+  const jwt = jwtDecode(userToken);
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -70,12 +74,7 @@ const ClientDetail = () => {
           <div className="w-full flex flex-col justify-between items-center bg-[#001e2b]  text-white col-span-2 ">
             <div className="w-full p-3 text-base font-bold  space-y-8">
               <div className=" mx-auto ">
-                <img
-                  src="./Assets/Images/logo.png"
-                  alt="logo"
-                  height="144px"
-                  width="100px"
-                />
+                <img src={logo} alt="logo" />
               </div>
               <div
                 div
@@ -85,20 +84,7 @@ const ClientDetail = () => {
                 <hr className="w-full h-[1px] text-[gray] mt-3" />
               </div>
 
-              <ul className="mt-12 space-y-4">
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <MdAdminPanelSettings size={20} /> */}
-                  <Link to="/">Dashbroad</Link>
-                </li>
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <FaUser size={20} className="text-[white]" /> */}
-                  <Link to="/clients/info">Client Info</Link>
-                </li>
-                <li className="flex justify-start items-center gap-2 text-lg">
-                  {/* <BsFillPersonLinesFill size={20} className="text-[white]" /> */}
-                  <Link to="/candidates/info">Applicant Info</Link>
-                </li>
-              </ul>
+              <SideNavLinks />
             </div>
 
             {/* log out button */}
@@ -118,7 +104,12 @@ const ClientDetail = () => {
                 Welcome to Admin Pannel
               </div>
 
-              <img src="./Assets/Images/ceodawoodproud2.png" alt="dawood" />
+              {/* <img src="./Assets/Images/ceodawoodproud2.png" alt="dawood" /> */}
+              <div>
+                {" "}
+                <span style={{ color: "dimgray" }}> Logged in as : </span>{" "}
+                <b style={{ fontFamily: "koHo" }}> {jwt.name} </b>{" "}
+              </div>
             </div>
             <div className="mx-auto w-full">
               <div className="container my-5 mx-auto">
